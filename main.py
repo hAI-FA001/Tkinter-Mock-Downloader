@@ -20,6 +20,8 @@ def downloadVid():
         entered_link = link_input.get()
         yt_vid = YouTube(entered_link, on_progress_callback=on_progress)
         
+        vid_label.configure(text=yt_vid.title)
+        
         vid = yt_vid.streams.get_highest_resolution()
         vid.download()
         
