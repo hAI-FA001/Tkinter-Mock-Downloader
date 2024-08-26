@@ -4,6 +4,7 @@ from pytube import YouTube
 
 
 def downloadVid():
+    finish_label_config = {}
     try:
         entered_link = link_input.get()
         yt_vid = YouTube(entered_link)
@@ -11,8 +12,13 @@ def downloadVid():
         vid = yt_vid.streams.get_highest_resolution()
         vid.download()
         
+        finish_label_config["text"] = f"Downloaded {entered_link} successfully!"
+        finish_label_config["text_color"] = "green"
     except Exception as e:
-        pass
+        finish_label_config["text"] = f"An error occured: {e}"
+        finish_label_config["text_color"] = "red"
+    
+    finished_label.configure(**finish_label_config)
 
 
 customtkinter.set_appearance_mode('System')  # dark mode/light mode
@@ -30,6 +36,9 @@ vid_label.pack(padx=10, pady=10)
 link_var = tkinter.StringVar()
 link_input = customtkinter.CTkEntry(app, width=350, height=40, textvariable=link_var)
 link_input.pack()
+
+finished_label = customtkinter.CTkLabel(app, text="")
+finished_label.pack()
 
 download_btn = customtkinter.CTkButton(app, text="Download", command=downloadVid)
 download_btn.pack(padx=10, pady=10)
