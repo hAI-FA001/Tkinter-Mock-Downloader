@@ -21,7 +21,7 @@ def make_download_command(controls):
             
             controls["vid_label"].configure(text=yt_vid.title)
             
-            vid = yt_vid.streams.get_highest_resolution()
+            vid = yt_vid.streams.get_by_resolution(controls["vid_res_input"].get())
             vid.download()
             
             finish_label_config["text"] = f"Downloaded {entered_link} successfully!"
@@ -30,7 +30,7 @@ def make_download_command(controls):
             finish_label_config["text"] = f"An error occured: {e}"
             finish_label_config["text_color"] = "red"
         
-        controls["finished_label"].configure(**finish_label_config)
+        controls["finish_label"].configure(**finish_label_config)
 
     return downloadVid
 

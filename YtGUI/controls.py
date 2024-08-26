@@ -51,10 +51,17 @@ def make_resize_btn(app, resize_command):
     res_btn.pack()
     return res_btn
 
+def make_vid_res_dropdown(app):
+    vid_res_var = tkinter.StringVar()
+    vid_res_dropdown = customtkinter.CTkOptionMenu(app, variable=vid_res_var, values=["720p", "480p", "360p", "240p", "144p"])
+    vid_res_dropdown.pack()
+    return vid_res_dropdown
+
 def add_controls(app):
     controls = {}
     controls["vid_label"] = make_vid_label(app)
     controls["link_input"] = make_link_input(app)
+    controls["vid_res_dropdown"] = make_vid_res_dropdown(app)
     
     controls["finish_label"] = make_finish_label(app)
     controls["progress_label"], controls["progress_bar"] = make_progress(app)
