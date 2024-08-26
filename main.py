@@ -9,4 +9,9 @@ app = customtkinter.CTk()
 app.geometry("720x480")
 app.title("YouTube Video Downloader")
 
+
+vid_label = customtkinter.CTkLabel(app, text="YouTube Link")
+vid_label.pack(padx=10, pady=10)
+
+
 app.mainloop()
