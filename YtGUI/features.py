@@ -33,3 +33,6 @@ def make_download_command(controls):
         controls["finished_label"].configure(**finish_label_config)
 
     return downloadVid
+
+def make_resize_command(app, controls):
+    return lambda: app.geometry(f"{controls["res_input_width"].get()}x{controls["res_input_height"].get()}")
