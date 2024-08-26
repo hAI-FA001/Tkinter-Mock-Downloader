@@ -1,4 +1,4 @@
-from pytube import YouTube
+from pytubefix import YouTube
 
 
 def make_download_command(controls):
@@ -21,7 +21,18 @@ def make_download_command(controls):
             
             controls["vid_label"].configure(text=yt_vid.title)
             
-            vid = yt_vid.streams.get_by_resolution(controls["vid_res_input"].get())
+            user_res = controls["vid_res_dropdown"].get()
+            res = user_res
+            vid = yt_vid.streams.get_by_resolution(res)
+            
+            resolutions = ["144p", "240p", "360p", "480p", "720p"]
+            i = -1
+            while vid is None and i < len(resolutions):
+                i += 1
+                res = resolutions[i]
+                vid = yt_vid.streams.get_by_resolution(res)
+            
+            controls['finish_label'].configure(text=f"Could not find {user_res}, using {res} instead...", text_color="orange")
             vid.download()
             
             finish_label_config["text"] = f"Downloaded {entered_link} successfully!"

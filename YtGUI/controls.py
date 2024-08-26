@@ -57,17 +57,17 @@ def make_resizer(app):
     res_input_height = customtkinter.CTkEntry(app, width=350, height=40, textvariable=res_height_var)
     
     # res_input_width.pack()
-    res_input_width.grid(row=6, column=0, sticky="nsew", padx=app.winfo_width()//20, pady=app.winfo_height()//2)
+    res_input_width.grid(row=7, column=0, sticky="nsew", padx=app.winfo_width()//20, pady=app.winfo_height()//20)
     # res_input_height.pack()
-    res_input_height.grid(row=6, column=1, sticky="nsew", padx=app.winfo_width()//20, pady=app.winfo_height()//2)
+    res_input_height.grid(row=7, column=2, sticky="nsew", padx=app.winfo_width()//20, pady=app.winfo_height()//20)
     
     return res_input_width, res_input_height
 
 def make_resize_btn(app, resize_command):
-    res_btn = customtkinter.CTkButton(app, text="Resize", command=resize_command)
+    res_btn = customtkinter.CTkButton(app, text="Resize Window", command=resize_command)
     
     # res_btn.pack()
-    res_btn.grid(row=6, column=2, sticky="nsew", padx=app.winfo_width()//20, pady=app.winfo_height()//2)
+    res_btn.grid(row=8, columnspan=3, sticky="nsew", padx=app.winfo_width()//20)
     
     return res_btn
 
@@ -82,7 +82,7 @@ def make_vid_res_dropdown(app):
 
 def add_controls(app: customtkinter.CTk):
     app.grid_columnconfigure(tuple(x for x in range(3)), weight=1)
-    app.rowconfigure(tuple(x for x in range(8)), weight=1)
+    app.rowconfigure(tuple(x for x in range(10)), weight=1)
     
     controls = {}
     controls["vid_label"] = make_vid_label(app)
@@ -96,5 +96,9 @@ def add_controls(app: customtkinter.CTk):
     
     controls["res_input_width"], controls["res_input_height"] = make_resizer(app)
     controls["resize_btn"] = make_resize_btn(app, make_resize_command(app, controls))
+    
+    # for spacing
+    customtkinter.CTkLabel(app, text="").grid(row=6, columnspan=3, sticky="nsew")
+    customtkinter.CTkLabel(app, text="").grid(row=9, columnspan=3, sticky="nsew")
 
     return controls
