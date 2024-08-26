@@ -1,4 +1,4 @@
-from pytubefix import YouTube
+from YtGUI.mock.youtube import YouTube
 
 
 def make_download_command(controls):
