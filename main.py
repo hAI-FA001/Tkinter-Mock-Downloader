@@ -4,10 +4,21 @@ from pytube import YouTube
 
 
 def downloadVid():
+    def on_progress(stream, chunk, bytes_remaining):
+        sz = stream.filesize
+        downloaded = sz - bytes_remaining
+        downloaded_percent = 100 * float(downloaded) / sz
+        downloaded_percent = int(downloaded_percent)
+        
+        progress_label.configure(text=f"{downloaded_percent}%")
+        progress_label.update()
+        progress_bar.set(float(downloaded_percent) / 100)
+        
+    
     finish_label_config = {}
     try:
         entered_link = link_input.get()
-        yt_vid = YouTube(entered_link)
+        yt_vid = YouTube(entered_link, on_progress_callback=on_progress)
         
         vid = yt_vid.streams.get_highest_resolution()
         vid.download()
@@ -39,6 +50,13 @@ link_input.pack()
 
 finished_label = customtkinter.CTkLabel(app, text="")
 finished_label.pack()
+
+progress_label = customtkinter.CTkLabel(app, text="0%")
+progress_label.pack()
+
+progress_bar = customtkinter.CTkProgressBar(app, width=400)
+progress_bar.set(0)
+progress_bar.pack(padx=10, pady=10)
 
 download_btn = customtkinter.CTkButton(app, text="Download", command=downloadVid)
 download_btn.pack(padx=10, pady=10)
