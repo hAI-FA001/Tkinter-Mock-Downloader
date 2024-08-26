@@ -13,5 +13,8 @@ app.title("YouTube Video Downloader")
 vid_label = customtkinter.CTkLabel(app, text="YouTube Link")
 vid_label.pack(padx=10, pady=10)
 
+download_btn = customtkinter.CTkButton(app, text="Download")
+download_btn.pack(padx=10, pady=10)
+
 
 app.mainloop()
